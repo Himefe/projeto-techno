@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet"> 
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6"></script>
+  <title>Techno</title>
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <img src="assets/img/techno.svg" alt="Logo-marca" class="logo">
+      <div class="carrinho" @Click="overlay">
+        {{carrinhoTotal | numeroPreco}} | {{carrinho.length}}
+      </div>
+    </header>
+    <section class="modal" v-if="produto" @Click="fecharModal">
+      <div class="modal-container">
+        <div class="modal_img">
+          <img :src="produto.img" :alt="produto.nome">
+        </div>
+        <div class="modal_dados">
+          <button class="btn_close" @Click="produto = false">X</button>
+          <span class="modal_preco">{{produto.preco | numeroPreco}}</span>
+          <h2 class="modal_title">{{produto.nome}}</h2>
+          <p>{{produto.descricao}}</p>
+          <p>{{produto.estoque}}</p>
+          <button class="modal_btn" @Click="adicionarItem" v-if="produto.estoque > 0">Adicionar item</button>
+          <button class="modal_btn" v-else disabled>Produto Esgotado</button>
+        </div>
+        <div class="reviews">
+          <h2 class="avaliacoes_sub>">Avaliações</h2>
+          <ul>
+            <li v-for="ava in produto.reviews" class="avaliação">
+              <p class="ava_desc">{{ava.descricao}}</p>
+              <p class="ava_name">{{ava.nome}} | {{ava.estrelas}} estrelas</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="produtos">
+      <div class="produto" v-for="item in produtos" @Click="abrirModal(item.id)" :key="item.id">
+        <img :src="item.img" :alt="item.nome" class="produto_img">
+        <div class="produto_info">
+          <span class="produto_preco">{{item.preco | numeroPreco}}</span>
+          <h2 class="produto_title">{{item.nome}}</h2>
+        </div>
+      </div>
+    </section>
+    <section class="modal_carrinho" :class="{ativo: carrinhoAtivo}">
+      <div class="carrinho_container">
+        <button class="carrinho_fechar" @Click="overlay">X</button>
+        <h2 class="carrinho_title">Carrinho</h2>
+        <div v-if="carrinho.length > 0">
+          <ul class="carrinho_lista">
+            <li v-for="(item, index) in carrinho" class="carrinho_item">
+              <span>{{item.nome}}</span>
+              <span class="carrinho_preco">{{item.preco | numeroPreco}}</span>
+              <button class="remover_carrinho" @Click="removerItem(index)">X</button>
+            </li>
+          </ul>
+          <div class="precoFinalizar">
+            <span class="carrinho_total">{{carrinhoTotal | numeroPreco}}</span>
+            <button class="carrinho_finalizar">Finalizar compra</button>
+          </div>
+        </div>
+        <span v-else>O carrinho está vazio.</span>
+      </div>
+    </section>
+    <div class="alerta" :class="{ativo: possuiAtivo}">
+      <span>{{mensagemAlerta}}</span>
+    </div>
+  </div>
+  
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>

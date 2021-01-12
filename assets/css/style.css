@@ -1,0 +1,400 @@
+body, ul, li, a, h1, h2, p {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to right, #000 30%, #FFF 30%);
+  font-family: "Noto serif", serif;
+  overflow-x: hidden;
+}
+
+#app {
+  padding: 0 80px;
+  position: relative;
+}
+
+.produtos {
+  max-width: 900px;
+  margin: 100px auto 0 auto
+}
+
+.produto {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  background: #FFF;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, .1) ;
+  cursor: pointer;
+}
+
+.produto_img {
+  max-width: 300px;
+}
+
+.produto_info {
+  margin-left: 40px;
+}
+
+.produto_preco {
+  color: rgba(0, 0, 0, .5);
+}
+
+.produto_title {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.modal::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 171vh;
+  background: rgba(0, 0, 0, .5);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding: 80px;
+  animation: fadeIn .6s forwards;
+} 
+
+.modal-container {
+  position: relative;
+  background: linear-gradient(to right, transparent 250px, #FFF 250px);
+  z-index: 999;
+  display: grid;
+  align-items: flex-end;
+  grid-gap: 50px;
+  padding: 0px 50px 50px 0;
+
+}
+
+.modal_img {
+  margin-top: 50px;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, .1), 0px 4px 10px rgba(0, 0, 0, .2);
+}
+
+.modal_img img{
+  max-width: 300px;
+  display: block;
+}
+
+.modal_dados {
+  grid-column: 2;
+  max-width: 600px;
+}
+
+.reviews {
+  grid-column: 2;
+}
+
+.modal_title {
+  font-size: 3rem;
+}
+
+.modal_btn {
+  margin-top: 80px;
+  background-color: #000;
+  cursor: pointer;
+  color: #FFF;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: none;
+  font-family: "Noto Serif", serif;
+}
+
+.avaliacao {
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  padding-bottom: 20px;
+}
+
+.ava_desc {
+  color: rgba(0, 0, 0, .7);
+  margin: 20px 0 5px 0;
+}
+
+.ava_name {
+  font-weight: bold;
+}
+
+.avaliacoes_sub {
+  font-size: 1.75rem;
+}
+
+.btn_close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  outline: none;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 900px;
+  padding: 20px 0;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 80px;
+}
+
+.carrinho {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.carrinho::after {
+  content: "";
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin-left: 10px;
+  background: url("../img/carrinho.svg") no-repeat center center;
+}
+
+.alerta {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  transform: translate3d(0px, -100px, 0px);
+  transition: all .3s ease-in-out;
+}
+
+.alerta span {
+  background-color: #FFF;
+  padding: 20px 40px;
+  display: inline-block;
+  border: 2px solid #000;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, .1), 0px 4px 10px rgba(0, 0, 0, .2);
+}
+
+.alerta.ativo {
+  transform: translate3d(0px, 0px, 0px);
+}
+
+
+.modal_carrinho {
+  position: static;
+  top: 0;
+  right: 0px;
+  width: 100%;
+  background: rgba(0, 0, 0, .5);
+  transition: all .5s ease-in-out;
+}
+
+
+
+.carrinho_container {
+  position: absolute;
+  top: 60px;
+  right: 300px;
+  transform: translate3d(600px, 0, 0);
+  height: calc(100vh - 61px);
+  width: 300px;
+  background-color: #FFF;
+  border-top: 2px solid rgba(0, 0, 0, .5);
+  border-left: 2px solid rgba(0, 0, 0, .5);
+  border-bottom: 2px solid rgba(0, 0, 0, .5);
+  transition: all .4s ease-in-out;
+  z-index: 900;
+  padding: 20px;
+}
+
+.carrinho_container > div {
+  margin-bottom: 30px;
+}
+
+.modal_carrinho.ativo .carrinho_container {
+  transform: translate3d(299px, 0, 0);
+  z-index: 999;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+
+.carrinho_fechar {
+  position: absolute;
+  right: -1px;
+  top: -10px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #FFF;
+  cursor: pointer;
+  margin-top: 12px;
+  font-size: 1.1em;
+}
+
+.carrinho_fechar:hover {
+  color: red;
+}
+
+.carrinho_item:first-child {
+  margin-top: 20px;
+}
+
+.carrinho_item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+
+.remover_carrinho {
+  border: none;
+  background: #FFF;
+  font-size: 1.0rem;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.remover_carrinho:hover {
+  color: red;
+  font-weight: bold;
+}
+
+.precoFinalizar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carrinho_total {
+  font-weight: bold;
+}
+
+.carrinho_title {
+  border-bottom: 2px solid #000;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.carrinho_finalizar {
+  padding: 10px;
+  background: #FFF;
+  border: 1px solid #000;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  font-size: 0.9rem;
+}
+
+.carrinho_finalizar:hover, .carrinho_finalizar:active{
+  background: #000;
+  color: #FFF;
+}
+
+
+@media only screen and (max-width: 900px) {
+  #app {
+    padding: 10px;
+  }
+
+  .produto {
+    align-items: flex-start;
+    flex-direction: column;
+    max-width: 300px;
+    margin: 30px auto;
+  }
+
+  .produto_info {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .produto_title {
+    font-size: 1.5rem;
+  }
+
+  .produto img {
+    max-width: 100%;
+  }
+
+  .modal {
+    padding: 10px;
+  }
+
+  .modal-container {
+    grid-gap: 20px;
+    background-color: #FFF;
+    padding: 10px 0;
+  }
+
+  .modal_img {
+    grid-row: 2;
+  }
+
+  .modal_img img {
+    width: 100%;
+    max-width: initial
+  }
+
+  .modal_dados {
+    grid-column: 1;
+    padding: 10px;
+  }
+
+  .modal_btn {
+    margin-top: 20px;
+  }
+
+  .reviews {
+    grid-column: 1;
+    padding: 10px;
+  }
+
+  .modal::before {
+    height: 1420px;
+  }
+}
+
+
+
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0px, -100px, 0px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(50px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0px, 0, 0);
+  }
+}
